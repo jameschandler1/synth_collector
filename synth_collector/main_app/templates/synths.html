@@ -1,0 +1,31 @@
+{% extends 'base.html'%} 
+
+{% block title %}Synth{% endblock %}
+
+{% block content %}
+
+<h1 class="title pt-5">Synth Collection</h1>
+<div class="gallery">
+  {% for synth in synths %}
+  <a href="/about/<int:pk>">
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-responsive">
+          <img src="{{synth.img}}" alt="{{synth.name}}" />
+        </figure>
+      </div>
+      <div class="card-header">
+            <p class="card-header-title">{{synth.maker}}</p>
+            <p class="card-content">{{synth.name}}</p>
+      </div>
+    </div>
+  </a>
+	{% empty %}
+  <article class="message">
+    <div class="message-header">
+      <p>No Synthesizers Added</p>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}
