@@ -1,0 +1,71 @@
+body {
+  background-color: #262222;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  color: #ffffff;
+  padding: 10px;
+}
+
+.title {
+  color: #ffffff;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  justify-content: center;
+  gap: 30px;
+  margin: auto 30px;
+}
+
+.gallery .card {
+  transition: .1s linear;
+}
+
+.gallery .card:hover {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+p {
+  font-size: 12px;
+}
+
+.navbar {
+    background-color: rgb(255,192,66);
+}
+
+
+body > div.box {
+    width: 50%;
+    height: 50%;
+    padding: 30px;
+    margin: 50px auto;
+}
+
+.field > p.help {
+    color: blue;
+    justify-content: right;
+}
+
+.button {
+    margin: 0 0 0 10px;
+    background-color: rgba(213, 39, 39, 0.851);
+    color: white;
+    border: transparent;
+    cursor: pointer;
+}
+
+.button:hover {
+    color: white;
+    background-color: rgba(206, 53, 53, 0.968);
+}
+
+body > nav > div.navbar-brand > a.navbar-item:hover {
+    background-color: white;
+}

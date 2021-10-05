@@ -1,12 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Synth Collector</title>
-  </head>
-  <body>
-    <h1> Home </h1>
-  </body>
-</html>
+{% extends 'base.html' %} {% block content %}
+<div class="box">
+  <div class="field">
+    <div class="control">
+      <label class="label">Add Synthesizer</label>
+
+      <input class="input" type="text" placeholder="ex. Mono/Poly" />
+
+      <br />
+      <br />
+
+      <label class="label"> Maker </label>
+
+      <input class="input" type="text" placeholder="ex. Korg" />
+
+      <br />
+      <br />
+
+      <label class="label"> Production Year </label>
+
+      <input class="input" type="text" placeholder="ex. 1981" />
+
+      <br />
+      <br />
+    </div>
+
+    <div class="field is-grouped is-grouped-right">
+      <button class="button">Cancel</button>
+      <button class="button is-primary">Submit</button>
+    </div>
+
+    <br />
+  </div>
+</div>
+{% endblock %}
