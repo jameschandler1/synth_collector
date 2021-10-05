@@ -23,7 +23,7 @@
     <a href="{% url 'synth_update' synths.pk %}" class="card-footer-item"
       >Edit</a
     >
-    <a href="#" class="card-footer-item">Delete</a>
+    <a href="{% url 'synth_del_confirm' synths.pk %}" class="card-footer-item">Delete</a>
   </footer>
   {% endif %}
 </div>

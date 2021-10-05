@@ -65,14 +65,14 @@ h3 {
   background-color:#fcccb8;
 }
 
-.gallery.mx-5 {
+.gallery.mx-6 {
   display: grid;
   grid-template-columns: repeat(auto, minmax(280px, 1fr));
   gap: 20px;
   margin: auto 30px;
 }
 
-.gallery.mx-5 .card {
+.gallery.mx-6 .card {
   transition: .1s linear;
   display: inline-block;
   height: fit-content;
@@ -80,8 +80,8 @@ h3 {
 }
 
 
-.gallery.mx-5 .card:hover {
-  transform: scale(1.01);
+.gallery.mx-6 .card:hover {
+  transform: scale(.99);
   z-index: 12;
 }
 
@@ -147,7 +147,7 @@ nav.navbar > div.navbar-menu.navbar-end > a.navbar-item {
 }
 nav.navbar > div.navbar-menu.navbar-end > a.navbar-item:hover {
     color: black;
-    background-color: rgb(255, 249, 249)
+    background-color: rgb(252, 233, 233);
 }
 
 .card-header > p {
@@ -168,15 +168,10 @@ div.card.is-responsive > header.card-header > p.card-header-title {
   border-top-left-radius: 3px ;
 }
 
-body > div.gallery.mx-5 > a > div.card {
+body > div.gallery.mx-6 > a > div.card {
   max-width: 60%;
   max-height: 60%;
 }
-
-body > div.gallery.mx-5 > a {
-  padding-left: 295px;
-}
-
 
 body > nav > div.navbar-menu.navbar-end {
   justify-content: space-evenly;

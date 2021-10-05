@@ -3,8 +3,9 @@ from django.views import View # <- View class to handle requests
 from django.http import HttpResponse 
 from django.views.generic.base import TemplateView
 from .models import Synths
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
+from django.urls import reverse
 # Create your views here.
 
 class Home(TemplateView):
@@ -48,4 +49,13 @@ class SynthUpdate(UpdateView):
     model = Synths
     fields = ['name', 'maker', 'year', 'img', 'info']
     template_name = 'synth_update.html'
+    
+    def get_success_url(self):
+        return reverse('synth_info', kwargs={'pk': self.object.pk})
+
+
+class SynthDelete(DeleteView):
+    model = Synths
+    template_name = 'synth_del_confirm.html'
     success_url = '/synths/'
+
