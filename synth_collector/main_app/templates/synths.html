@@ -20,9 +20,9 @@
   <!--  This anchor tag will redirect back to artist list without a query param -->
 </form>
 
-<div class="gallery">
+<div class="gallery mx-5">
   {% for synth in synths %}
-  <a href="">
+  <a class="container" href="{% url 'synth_info' synth.pk %}">
     <div class="card">
       <div class="card-image">
         <figure class="image is-responsive">
