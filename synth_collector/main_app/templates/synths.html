@@ -4,10 +4,25 @@
 
 {% block content %}
 
-<h1 class="title pt-5">Synth Collection</h1>
-<div class="gallery">
+<h1 class="title pt-5">{{header}}
+    <form class="mb-5 is-pulled-right" method="get">
+        <a class="button is-light is-pulled-right" href="{% url 'synths' %}">Clear</a>
+  <div class="field has-addons">
+    <div class="control">
+      <!--  Our input will search by name of synth  -->
+      <input class="input" type="text" name="name" placeholder="name" />
+    </div>
+    <div class="control">
+      <input class="button is-success is-marginless" type="submit" value="Search" />
+    </div>
+  </div>
+</h1>
+  <!--  This anchor tag will redirect back to artist list without a query param -->
+</form>
+
+<div class="gallery mx-5">
   {% for synth in synths %}
-  <a href="/about/<int:pk>">
+  <a class="container" href="{% url 'synth_info' synth.pk %}">
     <div class="card">
       <div class="card-image">
         <figure class="image is-responsive">

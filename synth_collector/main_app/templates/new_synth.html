@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% block content %}
+<form class="box is-justify-content-center" method="post">
+    <h1 class="title pt-3">Add To Collection</h1>
+   
+  <div class="field">
+    <div class="control">
+    {%csrf_token%}
+      <label class="label">Name:</label>
+
+      <input name="name" class="input" type="text" placeholder="ex. Mono/Poly" />
+
+      <br />
+      <br />
+
+      <label class="label"> Maker: </label>
+
+      <input name="maker" class="input" type="text" placeholder="ex. Korg" />
+      
+      <br />
+      <br />
+
+      <label class="label"> Production Year: </label>
+
+      <input name='year' class="input" type="text" placeholder="ex. 1981" />
+
+      <br />
+      <br />
+
+      <label class="label"> Image Link: </label>
+
+      <input name='img' class="input" type="text" placeholder="ex. https://www.somepic.com/pics.jpg/" />
+
+      <br />
+      <br />
+    </div>
+      <label class="label"> Description: </label>
+
+      <input name='info' class="input" type="text" placeholder="ex. https://www.somepic.com/pics.jpg/" />
+
+      <br />
+      <br />
+    </div>
+
+    <div class="field is-grouped is-grouped-right">
+        <button class="button is-primary" type="submit">Submit</button>
+      <button href="{%url 'synths' %}" class="button">Cancel</button>
+    </div>
+</div>
+</form>
+{% endblock %}

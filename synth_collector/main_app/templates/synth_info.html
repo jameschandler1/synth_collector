@@ -1,3 +1,30 @@
 {% extends 'base.html' %} {% block content %}
 
+<div class="card is-justify-content-center">
+  {% if synths.pk %}
+  <header style="background-color: rgb(255, 75, 75)" class="card-header">
+    <h1 class="card-header-title">{{synths.name}}</h1>
+  </header>
+  <figure class="image is-responsive">
+    <img src="{{synths.img}}" />
+  </figure>
+  <div class="card-content">
+    <time style="font-size: small">
+      <i class="fa-solid fa-user"> {{synths.created}} </i>
+    </time>
+    <br />
+    <br />
+    <div class="content"> <b>Description:</b> {{synths.info}}</div>
+    <p class="description">
+      Production Year: <i>{{synths.year}}</i> Maker: <i>{{synths.maker}}</i>
+    </p>
+  </div>
+  <footer class="card-footer">
+    <a href="{% url 'synth_update' synths.pk %}" class="card-footer-item"
+      >Edit</a
+    >
+    <a href="#" class="card-footer-item">Delete</a>
+  </footer>
+  {% endif %}
+</div>
 {% endblock %}
