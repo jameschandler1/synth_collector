@@ -7,5 +7,6 @@ urlpatterns = [
     path('about/', views.About.as_view(), name='about'),
     path('index/', views.Index.as_view(), name='index'),
     path('synths/', views.SynthList.as_view(), name='synths'),
+    path('synths/new/', views.NewSynth.as_view(), name='new_synth')
     # path('synths/<int:id>', views.SynthInfo.as_view(), name='synth_info'),
 ]
