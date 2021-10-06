@@ -59,3 +59,11 @@ class SynthDelete(DeleteView):
     template_name = 'synth_del_confirm.html'
     success_url = '/synths/'
 
+class GetReviews(UpdateView):
+    model = Synths
+    fields = ['review']
+    template_name = 'synths.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['review'] = Synths.objects.all()

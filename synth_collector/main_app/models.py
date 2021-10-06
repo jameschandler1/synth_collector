@@ -16,3 +16,16 @@ class Synths(models.Model):
     class Meta:
         ordering = ['name']
 
+class Reviews(models.Model):
+
+    review = models.TextField(max_length=500)
+    like = models.BooleanField(None, default=False)
+    synth = models.ForeignKey(Synths, on_delete=models.CASCADE, related_name='review')
+
+    def __str__(self):
+        return self.review
+
+    def __bool__(self):
+        return self.like
+
+
