@@ -11,5 +11,6 @@ urlpatterns = [
     path('synths/<int:pk>', views.SynthInfo.as_view(), name='synth_info'),
     path('synths/<int:pk>/update', views.SynthUpdate.as_view(), name='synth_update'),
     path('synths/<int:pk>/delete', views.SynthDelete.as_view(), name='synth_del_confirm'),
-    path('synths/', views.GetReviews.as_view(), name='get_reviews')
+    path('synths/<int:pk>/reviews', views.NewReview.as_view(), name='new_review'),
+    path('synths/reviews/', views.NewReviewFromNav.as_view(), name='nav_new_review')
 ]
