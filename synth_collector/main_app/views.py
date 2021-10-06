@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views import View # <- View class to handle requests
-from django.http import HttpResponse 
+from django.http import (HttpResponse, JsonResponse) 
 from django.views.generic.base import TemplateView
-from .models import Synths
+from .models import (Synths, Reviews)
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.urls import reverse
@@ -29,9 +29,7 @@ class SynthList(TemplateView):
         else:
             context["synths"] = Synths.objects.all()
             context["header"] = "Synth Collection"
-        return context
-
-
+            return context
 
 class NewSynth(CreateView):
     model = Synths
@@ -59,3 +57,14 @@ class SynthDelete(DeleteView):
     template_name = 'synth_del_confirm.html'
     success_url = '/synths/'
 
+class NewReview(CreateView):
+    model = Reviews
+    fields = ['review', 'synth']
+    template_name = 'new_review.html'
+    success_url = '/synths/'
+
+class NewReviewFromNav(CreateView):
+    model = Reviews
+    fields = ['review', 'synth']
+    template_name = 'nav_new_review.html'
+    success_url = '/synths/'
