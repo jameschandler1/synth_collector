@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Synths, Reviews
+from .models import Synth, Review
 # Register your models here.
-admin.site.register(Synths)
-admin.site.register(Reviews)
+admin.site.register(Synth)
+admin.site.register(Review)

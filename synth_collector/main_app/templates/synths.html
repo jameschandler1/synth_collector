@@ -21,38 +21,20 @@
 </form>
 
 <div class="gallery mx-6 is-justify-content-center">
-  {% for synth in synths %}
+  {% for s in synths %}
   <div class="card">
     <div class="card-image">
       <figure class="image is-responsive">
-        <img src="{{synth.img}}" alt="{{synth.name}}" />
+        <img src="{{s.img}}" alt="{{s.name}}" />
       </figure>
     </div>
-  <a class="container" href="{% url 'synth_info' synth.pk %}">
+  <a class="container" href="{% url 'synth_info' s.pk %}">
       <div class="card-header is-shadowless">
-            <p class="card-header-title">{{synth.maker}}</p>
-            <p style='color: black;' class="card-content">{{synth.name}}</p>
+            <p class="card-header-title">{{s.maker}}</p>
+            <p style='color: black;' class="card-content">{{s.name}}</p>
       </div>
     </a>
-      <article class="media mx-2">
-        <figure class="media-left">
-          <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png">
-            <p class='text is-justify-content-center'><strong>User</strong></p>
-          </p>
-        </figure>
-        <div class="media-content">
-          <div class="content">
-            <h4 class="title">Reviews <small style='font-size: 12px;'><a class='srclink is-pulled-right' href="/synths/{{synth.pk}}/reviews">add review</a></small></h4>
-            <p>
-              <br>
-            {{synth.review.all}}
-              <br>
-              <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
-            </p>
-          </div>
-          </div>
-      </article>
+     
   </div>
 
 

@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'synth_collector.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'synths',
+        'NAME': 'synths'
     }
 }
 
@@ -124,3 +124,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/synths/'
+LOGOUT_REDIRECT_URL = '/'
