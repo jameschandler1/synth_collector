@@ -1,31 +1,31 @@
 from django.db import models
+from django.contrib.auth.models import User # new
 
 # Create your models here.
-class Synths(models.Model):
 
+class Review(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField(max_length=500)
+    
+
+    def __str__(self):
+        return self.body
+
+
+class Synth(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     maker = models.CharField(max_length=100)
     year = models.CharField(max_length=4)
     img = models.CharField(max_length=255)
     info = models.TextField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)
+    review = models.ManyToManyField(Review)
 
     def __str__(self):
         return self.name
 
     class Meta:
         ordering = ['name']
-
-class Reviews(models.Model):
-
-    review = models.TextField(max_length=500)
-    like = models.BooleanField(None, default=False)
-    synth = models.ForeignKey(Synths, on_delete=models.CASCADE, related_name='review')
-
-    def __str__(self):
-        return self.review
-
-    def __bool__(self):
-        return self.like
-
-

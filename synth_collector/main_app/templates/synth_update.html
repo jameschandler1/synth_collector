@@ -4,10 +4,10 @@
 
 <h1 class="title pt-4"> Update {{synths.name}}</h1>
 
-<form method="post" actions="">
+<form class="card is-justify-content-center" method="post" actions="">
 
- {% csrf_token %} {{form.as_p}} <input type='submit' value='Submit' />
-
+ {% csrf_token %} {{form.as_p}} <input class='button is-success' type='submit' value='Submit' />
+<a class="button is-danger" href='/synths/{{synth.pk}}''> Cancel </a>
 
 </form>
 
