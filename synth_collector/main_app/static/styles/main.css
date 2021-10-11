@@ -57,9 +57,10 @@ body {
 
 @media screen and (min-width: 900px) {
   form.box {
-     width: 97%;
-     margin: 24px;
-      padding: 24px;
+    justify-content: center;
+     width: 50%;
+     margin-top: 100px;
+     margin-left: 440px;
   }
 }
 
