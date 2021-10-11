@@ -1,14 +1,17 @@
 {% extends 'base.html' %} {% block content %}
 
+<h1 class="title pt-4">Review {{synth.pk}}</h1>
 
-<h1 class="title pt-4"> Review {{synths.name}}</h1>
-
-<form method="post" actions="">
-
- {% csrf_token %} {{form.as_p}} <input type='submit' value='Submit' />
-
-
-</form>
-
-
+<div class="box" id='review-box'>
+<h3 id="box-header" class="box-header"> your thoughts? </h3>
+<br>
+  <div class='block'>
+    <br>
+    <form method="post" actions="">
+      {% csrf_token %} {{form.as_p}} 
+      <br>
+      <input id="review-input" type="submit" value="Submit" />
+    </form>
+  </div>
+</div>
 {% endblock %}
