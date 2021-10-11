@@ -1,9 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="card is-justify-content-center">
+  {% if synth != None %}
 
-{% if synth != None %}
-  
   <header style="background-color: rgb(255, 75, 75)" class="card-header">
     <h1 class="card-header-title">{{s.name}}</h1>
   </header>
@@ -12,65 +11,68 @@
   </figure>
   <div class="card-content">
     <time style="font-size: small">
-      <i class="fa-solid fa-user"> {{synth.created}} </i>
+       
+      <i class="fa-solid fa-user"> {{synth.created}} <a href="{% url 'new_review' synth.pk %}">Review</a> </i>
     </time>
     <br />
     <br />
-    <div class="content"> <b>Description:</b> {{synth.info}}</div>
+    <div class="content"><b>Description:</b> {{synth.info}}</div>
     <p class="description">
       Production Year: <i>{{synth.year}}</i> Maker: <i>{{synth.maker}}</i>
     </p>
   </div>
+  {% if user == review.user %}
   <footer class="card-footer">
     <a href="{% url 'synth_update' synth.pk %}" class="card-footer-item"
       >Edit</a
     >
-    <a href="{% url 'synth_del_confirm' synth.pk %}" class="card-footer-item">Delete</a>
+    <a href="{% url 'synth_del_confirm' synth.pk %}" class="card-footer-item"
+      >Delete</a
+    >
   </footer>
-
-  {% if synth.review != None %}
+  {% endif %} {% if synth != None %} 
+  {% for review in synth.review.all %}
   <article class="media mx-2">
-       <figure class="media-left">
-         <p class="image is-64x64">
-           <img src="https://bulma.io/images/placeholders/128x128.png">
-           <p class='text is-justify-content-center'><strong>{{user}}</strong></p>
-         </p>
-       </figure>
-       <div class="media-content">
-         <div class="content">
-           <h4 class="title"> Reviews 
-             <small style='font-size: 12px;'>
-             <a class='srclink is-pulled-right is-paddingless' href="{% url 'new_review' synth.pk %}">
-               <br>
-               add review
-             </a>
-           </small>
-         </h4>
-           <p>
-             <br>
-       {{synth.review.all}} 
-             <br>
-             <br>
-             <small><a>Like</a> · <a>Reply</a>  · <a href="/synths/{{synth.pk}}/reviews/{{synth.pk}}/edit">Edit</a> · <a href='/synths/reviews/{{synth.pk}}/delete'>Delete</a> · {{s.created}} </small>
-             <br>
-             <br>
-           </p>
-         </div>
-         </div>
-     </article>
-     {% endif %}
-  {% if synth.review == None %}
+    <figure class="media-right id-responsive">
+      <h2 class="title">Reviews</h2>
+      <p class="image is-48x48">
+        <img src="https://bulma.io/images/placeholders/128x128.png"/>
+      </p>
+      <strong>{{review.user}}</strong> : <p>{{review}}</p>
+      <br />
+      <br />
+      <small>
+        <a>Like</a> · 
+        <a>Reply</a>
+       
+        {% if review.user.id == user.id %} 
+        ·
+        <a href="/synths/{{synth.pk}}/reviews/{{synth.pk}}/edit">Edit</a> 
+        ·
+        <a href="/synths/reviews/{{synth.pk}}/delete">Delete</a> 
+        ·
+      </small>
+      {% endif %}
+      <br />
+      <br />
+    </figure>
+  </article>
+
+  {% endfor %} 
+  {% endif %} 
+  {% if synth == None %}
   <article class="message">
-       <div class="message-header">
-         <p>No reviews</p>
-         <a class='srclink is-pulled-right is-paddingless' style='font-size: 10px;' href="{% url 'new_review' synth.pk %}">write one?</a>
-       </div>
-     </article>
-  {% endif %}
+    <div class="message-header">
+      <p>No reviews</p>
+      <a
+        class="srclink is-pulled-right is-paddingless"
+        style="font-size: 10px"
+        href="{% url 'new_review' synth.pk %}"
+        >write one?</a
+      >
     </div>
- 
- {% endif %}
+  </article>
+  {% endif %}
+</div>
 
-  {% endblock %}
-
-
+{% endif %} {% endblock %}
