@@ -1,10 +1,9 @@
 
 from django.shortcuts import render, redirect
-from django.urls.base import reverse_lazy
 from django.views import View # <- View class to handle requests
 from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
-from .models import (Synth, Review)
+from .models import (Synth, Review, User)
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.urls import reverse
@@ -39,39 +38,23 @@ class SynthList(TemplateView):
             context["synths"] = Synth.objects.all()
             context["header"] = "Synth Collection"
             return context
-
-            
-class SignUp(View):
-    def get(self, request):
-        form = UserCreationForm()
-        context = {'form': form}
-        return render(request, 'registration/signup.html', context)
-
-    def post(self, request):
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('/')
-        else:
-            context = {'form': form}
-            return render(request, 'registration/signup.html', context)
     
 @method_decorator(login_required, name='dispatch')
 class NewSynth(CreateView):
     model = Synth
-    fields = ['name', 'maker', 'year', 'img', 'info']
     template_name = 'new_synth.html'
+    fields = ['name', 'maker', 'year', 'img', 'info']
+
+    def get_user(request):
+        user_id = User.objects.get(id=request.user.id)
+        return user_id
+
     def get_success_url(self):
         return reverse('synth_info', kwargs={'pk': self.object.pk})
 
 @method_decorator(login_required, name='dispatch')
 class SynthInfo(DetailView):
     model = Synth
-    template_name = 'synth_info.html'
-
-class ReviewInfo(DetailView):
-    model = Review
     template_name = 'synth_info.html'
 
 @method_decorator(login_required, name='dispatch')
@@ -98,6 +81,22 @@ class SynthDelete(DeleteView):
         else:
             context["body"] = Review.objects.all().filter(body=body)
             return context
+    
+class SignUp(View):
+    def get(self, request):
+        form = UserCreationForm()
+        context = {'form': form}
+        return render(request, 'registration/signup.html', context)
+
+    def post(self, request):
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/')
+        else:
+            context = {'form': form}
+            return render(request, 'registration/signup.html', context)
     
 @method_decorator(login_required, name='dispatch')
 class NewReview(CreateView):

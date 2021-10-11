@@ -47,11 +47,22 @@ body {
   --yt: 100%;
 }
 
-
-form.box {
-    width: 50%;
-    margin: 30px;
+@media screen and (min-width: 480) {
+  form.box {
+    width: 94%;
+    margin: 24px;
+    padding: 24px;
+  }
 }
+
+@media screen and (min-width: 900px) {
+  form.box {
+     width: 97%;
+     margin: 24px;
+      padding: 24px;
+  }
+}
+
 
 form.box > h1.title.pt-3 {
     background-color: rgba(191, 191, 191, 0.166);
@@ -72,8 +83,13 @@ h3 {
 }
 
 .title {
+  display:flex;
+  justify-content: space-between;
   color: #ffffff;
-  background-color:#fcccb8;
+  background-color:rgba(255, 142, 101, 0.81);
+  box-shadow: 20px 0px rgba(255, 117, 86, 0.646);
+  box-shadow: -40px 4px  rgba(255, 134, 107, 0.735);
+  box-shadow: -8px 8px  rgba(255, 185, 131, 0.856);
 }
 
 .gallery.mx-6 {
@@ -145,7 +161,7 @@ body > div.box {
 }
 
 body > nav > div.navbar-brand > a.navbar-item:hover {
-    background-color: rgb(255, 249, 249);
+    background-color: rgba(255, 175, 175, 0.235);
     color: black;
 }
 
@@ -153,12 +169,12 @@ body > nav > div.navbar-brand > a.navbar-item {
     color: white;
 }
 
-nav.navbar > div.navbar-menu.navbar-end > a.navbar-item {
+nav.navbar > div.navbar-menu.navbar > a.navbar-item {
     color: white;
 }
-nav.navbar > div.navbar-menu.navbar-end > a.navbar-item:hover {
+nav.navbar > div.navbar-menu.navbar> a.navbar-item:hover {
     color: black;
-    background-color: rgb(252, 233, 233);
+   
 }
 
 .card-header > p {
@@ -236,3 +252,26 @@ h4.title {
   padding: 0;
   background-color: transparent;
 }
+
+@media screen and (min-width: 500px) {
+  form.mb-5.is-pulled-right {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  body > div > div > article.media.mx-2 {
+    display: inline-block;
+    min-width: 95.8%;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  body > div > div > article.media.mx-2 {
+    display: inline-block;
+    min-width: 98.8%;
+  }
+}
+
+
