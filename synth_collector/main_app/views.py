@@ -1,9 +1,8 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View # <- View class to handle requests
-from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
-from .models import (Synth, Review, User)
+from .models import (Synth, Comment, User)
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.urls import reverse
@@ -45,12 +44,13 @@ class NewSynth(CreateView):
     template_name = 'new_synth.html'
     fields = ['name', 'maker', 'year', 'img', 'info']
 
-    def get_user(request):
-        user_id = User.objects.get(id=request.user.id)
-        return user_id
+    def form_valid(self, form):
+        form.instance.user = self.request.user 
+        return super(NewSynth, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('synth_info', kwargs={'pk': self.object.pk})
+
 
 @method_decorator(login_required, name='dispatch')
 class SynthInfo(DetailView):
@@ -72,14 +72,13 @@ class SynthDelete(DeleteView):
     template_name = 'synth_del_confirm.html'
     success_url = '/synths/'
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        body = self.request.GET.get('body')
-        if body != None:
-            return print('no reviews')
+        comment_body = self.request.GET.get('comment_body')
+        if comment_body != None:
+            return print('no Comments')
         else:
-            context["body"] = Review.objects.all().filter(body=body)
+            context["body"] = Comment.objects.all().filter(comment_body=comment_body)
             return context
     
 class SignUp(View):
@@ -97,40 +96,41 @@ class SignUp(View):
         else:
             context = {'form': form}
             return render(request, 'registration/signup.html', context)
+
+@method_decorator(login_required, name='dispatch')
+class MakeComment(CreateView):
+    model = Comment
+    fields = ['comment_body']
+    template_name = 'new_comment.html'
     
-@method_decorator(login_required, name='dispatch')
-class NewReview(CreateView):
-    model = Review
-    fields = ['body']
-    template_name = 'new_review.html'
-    success_url = '/synths/'
-
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(NewReview, self).form_valid(form)
- 
-@method_decorator(login_required, name='dispatch')
-class NewReviewFromNav(CreateView):
-    model = Review
-    fields = ['body']
-    template_name = 'nav_new_review.html'
-    success_url = '/synths/'
+        return super(MakeComment, self).form_valid(form)
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(NewReviewFromNav, self).form_valid(form)
- 
+    def get_success_url(self):
+        return reverse('synth_info', kwargs={'pk': self.object.id})
+
 
 @method_decorator(login_required, name='dispatch')
-class ReviewDelete(DeleteView):
+class DelComment(DeleteView):
     template_name = 'del_review.html'
-    model = Review
+    model = Comment
     success_url = '/synths/'
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(DelComment, self).form_valid(form)
 
 @method_decorator(login_required, name='dispatch')
-class ReviewEdit(UpdateView):
-    model = Review
+class EditComment(UpdateView):
+    model = Comment
     template_name = 'edit_review.html'
     fields = ['body']
     success_url = '/synths/'
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(EditComment, self).form_valid(form)
 
+
+    

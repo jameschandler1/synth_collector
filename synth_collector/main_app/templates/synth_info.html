@@ -1,18 +1,17 @@
 {% extends 'base.html' %} {% block content %}
 
+
 <div class="card is-justify-content-center">
   {% if synth != None %}
-
   <header style="background-color: rgb(255, 75, 75)" class="card-header">
-    <h1 class="card-header-title">{{s.name}}</h1>
+    <h1 class="card-header-title">{{synth.name}}</h1>
   </header>
   <figure class="image is-responsive">
     <img src="{{synth.img}}" />
   </figure>
   <div class="card-content">
     <time style="font-size: small">
-       
-      <i class="fa-solid fa-user"> {{synth.created}} <a href="{% url 'new_review' synth.pk %}">Review</a> </i>
+      <i class="fa-solid fa-user"> {{synth.created}}  </i>
     </time>
     <br />
     <br />
@@ -21,58 +20,53 @@
       Production Year: <i>{{synth.year}}</i> Maker: <i>{{synth.maker}}</i>
     </p>
   </div>
-  {% if user == review.user %}
   <footer class="card-footer">
-    <a href="{% url 'synth_update' synth.pk %}" class="card-footer-item"
+    {% if synth.user.id == user.id %}
+    <a href="{% url 'synth_update' synth.pk  %}" class="card-footer-item"
       >Edit</a
     >
     <a href="{% url 'synth_del_confirm' synth.pk %}" class="card-footer-item"
       >Delete</a
     >
+    {% endif %}
   </footer>
-  {% endif %} {% if synth != None %} 
-  {% for review in synth.review.all %}
-  <article class="media mx-2">
-    <figure class="media-right id-responsive">
-      <h2 class="title">Reviews</h2>
-      <p class="image is-48x48">
-        <img src="https://bulma.io/images/placeholders/128x128.png"/>
+  {% if synth.comment != None %}
+  {% for comment in synth.comment.comment_body %}
+  <article class="media">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <img src="https://bulma.io/images/placeholders/128x128.png">
       </p>
-      <strong>{{review.user}}</strong> : <p>{{review}}</p>
-      <br />
-      <br />
-      <small>
-        <a>Like</a> · 
-        <a>Reply</a>
-       
-        {% if review.user.id == user.id %} 
-        ·
-        <a href="/synths/{{synth.pk}}/reviews/{{synth.pk}}/edit">Edit</a> 
-        ·
-        <a href="/synths/reviews/{{synth.pk}}/delete">Delete</a> 
-        ·
-      </small>
-      {% endif %}
-      <br />
-      <br />
     </figure>
-  </article>
-
-  {% endfor %} 
-  {% endif %} 
-  {% if synth == None %}
-  <article class="message">
-    <div class="message-header">
-      <p>No reviews</p>
-      <a
-        class="srclink is-pulled-right is-paddingless"
-        style="font-size: 10px"
-        href="{% url 'new_review' synth.pk %}"
-        >write one?</a
-      >
+    <div class="media-content">
+      <p class="media-right"></p>
+    </p>
+    <strong>{{synth.user}}</strong>
+    <br>
+    {{comment}}
+    
+    {% endfor %} 
+    
+      <br>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a class="level-item"  href="{% url 'new_comment' synth.pk synth.id %}"> 
+            <span class="icon is-small is-pulled-left"><i class="fas fa-reply"></i></span>
+          </a>
+          <a class="level-item">
+            <span class="icon is-small is-pulled-left"><i class="fas fa-retweet"></i></span>
+          </a>
+          <a class="level-item">
+            <span class="icon is-small is-pulled-left"><i class="fas fa-heart"></i></span>
+          </a>
+        </div>
+      </nav>
     </div>
-  </article>
+    <div class="media-right">
+      <button class="delete"></button>
+    </div>
   {% endif %}
-</div>
-
-{% endif %} {% endblock %}
+  
+  {% endif %} 
+  
+{% endblock %}

@@ -6,5 +6,5 @@ $(".navbar-burger").click(function () {
 
 $('.modal').click(function () {
   //toggle modal
-  $(".modal").toggleClass("is-active");
+  $(".modal").toggleClassOn("is-active");
 })
