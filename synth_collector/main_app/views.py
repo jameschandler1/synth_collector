@@ -2,7 +2,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View # <- View class to handle requests
 from django.views.generic.base import TemplateView
-from .models import (Synth, Comment, User)
+from .models import (Synth, Comment)
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.urls import reverse
@@ -10,6 +10,8 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.http import HttpResponse
+
 
 # Create your views here.
 
@@ -40,16 +42,15 @@ class SynthList(TemplateView):
     
 @method_decorator(login_required, name='dispatch')
 class NewSynth(CreateView):
-    model = Synth
     template_name = 'new_synth.html'
+    model = Synth
     fields = ['name', 'maker', 'year', 'img', 'info']
+    success_url = '/synths/'
 
     def form_valid(self, form):
         form.instance.user = self.request.user 
         return super(NewSynth, self).form_valid(form)
 
-    def get_success_url(self):
-        return reverse('synth_info', kwargs={'pk': self.object.pk})
 
 
 @method_decorator(login_required, name='dispatch')
