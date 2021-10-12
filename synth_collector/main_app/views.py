@@ -42,16 +42,14 @@ class SynthList(TemplateView):
     
 @method_decorator(login_required, name='dispatch')
 class NewSynth(CreateView):
-    template_name = 'new_synth.html'
     model = Synth
+    template_name = 'new_synth.html'
     fields = ['name', 'maker', 'year', 'img', 'info']
     success_url = '/synths/'
 
     def form_valid(self, form):
         form.instance.user = self.request.user 
         return super(NewSynth, self).form_valid(form)
-
-
 
 @method_decorator(login_required, name='dispatch')
 class SynthInfo(DetailView):
@@ -66,6 +64,8 @@ class SynthUpdate(UpdateView):
     
     def get_success_url(self):
         return reverse('synth_info', kwargs={'pk': self.object.pk})
+
+    
 
 @method_decorator(login_required, name='dispatch')
 class SynthDelete(DeleteView):
@@ -109,7 +109,7 @@ class MakeComment(CreateView):
         return super(MakeComment, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('synth_info', kwargs={'pk': self.object.id})
+        return reverse('synth_info', kwargs={'pk': self.object.sfk })
 
 
 @method_decorator(login_required, name='dispatch')
