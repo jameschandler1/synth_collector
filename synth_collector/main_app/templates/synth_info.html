@@ -31,7 +31,6 @@
     {% endif %}
   </footer>
   {% if synth.comment != None %}
-  {% for comment in synth.comment.comment_body %}
   <article class="media">
     <figure class="media-left">
       <p class="image is-64x64">
@@ -43,8 +42,8 @@
     </p>
     <strong>{{synth.user}}</strong>
     <br>
+    {% for comment in synth.comment.comment_body %}
     {{comment}}
-    
     {% endfor %} 
     
       <br>
